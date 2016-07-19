@@ -1,0 +1,15 @@
+D:\KC\Documents\GitHub\nstaller2\nstaller2\bin\Debug\nstaller2.exe.config
+D:\KC\Documents\GitHub\nstaller2\nstaller2\bin\Debug\nstaller2.exe
+D:\KC\Documents\GitHub\nstaller2\nstaller2\bin\Debug\nstaller2.pdb
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2.csprojResolveAssemblyReference.cache
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\MainWindow.g.cs
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\App.g.cs
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2_MarkupCompile.cache
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2_MarkupCompile.lref
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\MainWindow.baml
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2.g.resources
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2.Properties.Resources.resources
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2.csproj.GenerateResource.Cache
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2.exe
+D:\KC\Documents\GitHub\nstaller2\nstaller2\obj\Debug\nstaller2.pdb
+D:\KC\Documents\GitHub\nstaller2\nstaller2\bin\Debug\System.Net.Http.dll
