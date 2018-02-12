@@ -1,0 +1,12 @@
+<nstaller2>
+	<bindir>bins</bindir>
+	<checkdotnet>true</checkdotnet>
+	<checkagent>true</checkagent>
+	<checkav>true</checkav>
+	<checkprobe>false</checkprobe>
+	<bindotnet>NDP452-KB2901907-x86-x64-AllOS-ENU.exe</bindotnet>
+	<binagent>WindowsAgentSetup.exe</binagent>
+	<binav86>AV_Defenderx86.exe</binav86>
+	<binav64>AV_Defenderx64.exe</binav64>
+	<binprobe>WindowsProbeSetup.exe</binprobe>
+</nstaller2>

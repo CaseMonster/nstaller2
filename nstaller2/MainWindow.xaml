@@ -5,17 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:nstaller2"
         mc:Ignorable="d"
-        Title="nstaller" Height="300" Width="275" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="16">
-    <Grid HorizontalAlignment="Center" Margin="10" Width="250" Height="250">
-        <Label x:Name="labelAccount" Content="Account" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" MouseEnter="labelAccount_MouseEnter"/>
-        <Label x:Name="labelPassword" Content="Password" HorizontalAlignment="Left" Margin="10,46,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" MouseEnter="labelPassword_MouseEnter"/>
-        <Label x:Name="labelNet" Content=".NET 4" HorizontalAlignment="Left" Margin="10,82,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
-        <Label x:Name="labelAgent" Content="Agent" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
-        <Label x:Name="labelProbe" Content="Probe" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
-        <CheckBox x:Name="checkBoxAgent" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,129,0,0" IsChecked="True"/>
-        <CheckBox x:Name="checkBoxProbe" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,165,0,0"/>
-        <Button x:Name="buttonInstall" Content="Install" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Width="230" Height="35" FontFamily="Segoe UI Semibold" Click="buttonInstall_Click"/>
-        <TextBox x:Name="textBoxAccount" HorizontalAlignment="Left" Height="31" Margin="10,14,0,0" TextWrapping="Wrap" Text="rmmadmin" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" Visibility="Hidden" MouseLeave="textBoxAccount_MouseLeave"/>
-        <TextBox x:Name="textBoxPassword" HorizontalAlignment="Left" Height="31" Margin="10,50,0,0" TextWrapping="Wrap" Text="#$Rmm@dmin!" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" Visibility="Hidden" MouseLeave="textBoxPassword_MouseLeave"/>
+        Title="nstaller" Height="321.386" Width="275" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" FontSize="16">
+    <Grid HorizontalAlignment="Center" Margin="9,10,9.8,6" Width="250">
+        <Label x:Name="labelAccount" Content="Account" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" MouseEnter="LabelAccount_MouseEnter"/>
+        <Label x:Name="labelPassword" Content="Password" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" MouseEnter="LabelPassword_MouseEnter"/>
+        <Label x:Name="labelDotNet" Content="DotNet 4.5.2" HorizontalAlignment="Left" Margin="10,74,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
+        <Label x:Name="labelAgent" Content="Agent" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
+        <Label x:Name="labelProbe" Content="Probe" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
+        <CheckBox x:Name="checkBoxAgent" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,111,0,0" IsChecked="True"/>
+        <CheckBox x:Name="checkBoxProbe" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,175,0,0"/>
+        <Button x:Name="buttonInstall" Content="Install" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Width="230" Height="35" FontFamily="Segoe UI Semibold" Click="ButtonInstall_Click"/>
+        <TextBox x:Name="textBoxAccount" HorizontalAlignment="Left" Height="31" Margin="10,14,0,0" TextWrapping="Wrap" Text="rmmadmin" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" Visibility="Hidden" MouseLeave="TextBoxAccount_MouseLeave"/>
+        <TextBox x:Name="textBoxPassword" HorizontalAlignment="Left" Height="31" Margin="10,50,0,0" TextWrapping="Wrap" Text="#$Rmm@dmin!" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold" Visibility="Hidden" MouseLeave="TextBoxPassword_MouseLeave"/>
+        <Label x:Name="labelAV" Content="AV Defender" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Width="230" FontFamily="Segoe UI Semibold"/>
+        <CheckBox x:Name="checkBoxAV" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,143,0,0" IsChecked="True"/>
+        <CheckBox x:Name="checkBoxDotNet" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,79,0,0" IsChecked="True"/>
     </Grid>
 </Window>

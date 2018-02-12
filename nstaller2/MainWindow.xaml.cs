@@ -15,27 +15,35 @@ namespace nstaller2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Settings settings;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            //Read settings
+            settings = XML.ReadXML("cfg.xml");
 
             //Color elements green
             if (IsUserAdded())
                 labelAccount.Foreground = new SolidColorBrush(Colors.DarkGreen);
             if (DoesUserHaveCorrectPassword())
                 labelPassword.Foreground = new SolidColorBrush(Colors.DarkGreen);
-            if (IsNetInstalled())
-                labelNet.Foreground = new SolidColorBrush(Colors.DarkGreen);
+            if (IsDotNetInstalled())
+                labelDotNet.Foreground = new SolidColorBrush(Colors.DarkGreen);
             if (IsAgentInstalled())
                 labelAgent.Foreground = new SolidColorBrush(Colors.DarkGreen);
+            if (IsAVInstalled())
+                labelAV.Foreground = new SolidColorBrush(Colors.DarkGreen);
             if (IsProbeInstalled())
                 labelProbe.Foreground = new SolidColorBrush(Colors.DarkGreen);
         }
 
-        private void buttonInstall_Click(object sender, RoutedEventArgs e)
+        private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
             if (!IsUserAdded())
             {
+                //Create account
                 PrincipalContext p = new PrincipalContext(ContextType.Machine);
                 UserPrincipal u = new UserPrincipal(p);
                 u.Name = textBoxAccount.Text;
@@ -46,22 +54,34 @@ namespace nstaller2
                 u.UserCannotChangePassword = true;
                 u.Save();
 
+                //Add account to administrators
                 GroupPrincipal g = GroupPrincipal.FindByIdentity(p, "administrators");
                 g.Members.Add(u);
                 g.Save();
+
+                //Hide account
+                RegistryKey rk = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList");
+                rk.SetValue(textBoxAccount.Text, 00000000, RegistryValueKind.DWord);
             };
 
-            if (!IsNetInstalled())
-                Run(FindFile("net"), "/q");
+            if (!IsDotNetInstalled())
+                if ((bool)checkBoxDotNet.IsChecked)
+                    Run(FindFile(settings.bindotnet), "/q");
 
-            if (IsAgentInstalled())
+            if (!IsAgentInstalled())
                 if ((bool)checkBoxAgent.IsChecked)
-                    Run(FindFile("agent"), "/quiet");
+                    Run(FindFile(settings.binagent), "/quiet");
 
+            if (!IsAVInstalled())
+                if ((bool)checkBoxAV.IsChecked)
+                    if(Environment.Is64BitOperatingSystem)
+                        Run(FindFile(settings.binav64), "/quiet");
+                    else
+                        Run(FindFile(settings.binav86), "/quiet");
 
-            if (IsAgentInstalled())
+            if (!IsAgentInstalled())
                 if ((bool)checkBoxProbe.IsChecked)
-                    Run(FindFile("probe"), "/quiet");
+                    Run(FindFile(settings.binprobe), "/quiet");
 
             this.Close();
         }
@@ -83,7 +103,7 @@ namespace nstaller2
 
         public string FindFile(string input)
         {
-            foreach (string file in Directory.GetFiles(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString()))
+            foreach (string file in Directory.GetFiles(System.Reflection.Assembly.GetExecutingAssembly().Location.ToString() + "\\" + settings.bindir))
                 if (file.Contains(input))
                     return file;
             return "null.exe"; //file not found
@@ -108,17 +128,25 @@ namespace nstaller2
             return false;
         }
 
-        public bool IsNetInstalled()
+        public bool IsDotNetInstalled()
         {
             RegistryKey installed_versions = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP");
             string[] version_names = installed_versions.GetSubKeyNames();
             double Framework = Convert.ToDouble(version_names[version_names.Length - 1].Remove(0, 1), CultureInfo.InvariantCulture);
-            if (Framework > 3.5)
+            if (Framework >= 4.0)
                 return true;
             return false;
         }
 
         public bool IsAgentInstalled()
+        {
+            foreach (Process clsProcess in Process.GetProcesses())
+                if (clsProcess.ProcessName.Contains("agent"))
+                    return true;
+            return false;
+        }
+
+        public bool IsAVInstalled()
         {
             foreach (Process clsProcess in Process.GetProcesses())
                 if (clsProcess.ProcessName.Contains("agent"))
@@ -134,25 +162,25 @@ namespace nstaller2
             return false;
         }
 
-        private void labelAccount_MouseEnter(object sender, MouseEventArgs e)
+        private void LabelAccount_MouseEnter(object sender, MouseEventArgs e)
         {
             labelAccount.Visibility = Visibility.Hidden;
             textBoxAccount.Visibility = Visibility.Visible;
         }
 
-        private void labelPassword_MouseEnter(object sender, MouseEventArgs e)
+        private void LabelPassword_MouseEnter(object sender, MouseEventArgs e)
         {
             labelPassword.Visibility = Visibility.Hidden;
             textBoxPassword.Visibility = Visibility.Visible;
         }
 
-        private void textBoxAccount_MouseLeave(object sender, MouseEventArgs e)
+        private void TextBoxAccount_MouseLeave(object sender, MouseEventArgs e)
         {
             labelAccount.Visibility = Visibility.Visible;
             textBoxAccount.Visibility = Visibility.Hidden;
         }
 
-        private void textBoxPassword_MouseLeave(object sender, MouseEventArgs e)
+        private void TextBoxPassword_MouseLeave(object sender, MouseEventArgs e)
         {
             labelPassword.Visibility = Visibility.Visible;
             textBoxPassword.Visibility = Visibility.Hidden;
