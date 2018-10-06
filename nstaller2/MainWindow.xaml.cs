@@ -19,10 +19,14 @@ namespace nstaller2
 
         public MainWindow()
         {
+            Log.InfoStamp("startup");
+
             InitializeComponent();
 
             //Read settings
+            Log.Info("reading settings");
             settings = XML.ReadXML("cfg.xml");
+            Log.Info("done reading settings");
 
             //Color elements green
             if (IsUserAdded())
@@ -37,12 +41,16 @@ namespace nstaller2
                 labelAV.Foreground = new SolidColorBrush(Colors.DarkGreen);
             if (IsProbeInstalled())
                 labelProbe.Foreground = new SolidColorBrush(Colors.DarkGreen);
+
+            Log.Info("initialized");
         }
 
         private void ButtonInstall_Click(object sender, RoutedEventArgs e)
         {
+            Log.InfoStamp("checking add user");
             if (!IsUserAdded())
             {
+                Log.Info("creating account");
                 //Create account
                 PrincipalContext p = new PrincipalContext(ContextType.Machine);
                 UserPrincipal u = new UserPrincipal(p);
@@ -54,35 +62,57 @@ namespace nstaller2
                 u.UserCannotChangePassword = true;
                 u.Save();
 
+                Log.Info("adding account to admin");
                 //Add account to administrators
                 GroupPrincipal g = GroupPrincipal.FindByIdentity(p, "administrators");
                 g.Members.Add(u);
                 g.Save();
 
+                Log.Info("hiding account");
                 //Hide account
                 RegistryKey rk = Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SpecialAccounts\UserList");
                 rk.SetValue(textBoxAccount.Text, 00000000, RegistryValueKind.DWord);
             };
 
+            Log.InfoStamp("checking dotnet");
             if (!IsDotNetInstalled())
                 if ((bool)checkBoxDotNet.IsChecked)
+                {
+                    Log.Info("installing dotnet");
                     Run(FindFile(settings.bindotnet), "/q");
+                };
 
+            Log.InfoStamp("checking agent");
             if (!IsAgentInstalled())
                 if ((bool)checkBoxAgent.IsChecked)
+                {
+                    Log.Info("installing agent");
                     Run(FindFile(settings.binagent), "/quiet");
+                };
 
+            Log.InfoStamp("checking av");
             if (!IsAVInstalled())
                 if ((bool)checkBoxAV.IsChecked)
-                    if(Environment.Is64BitOperatingSystem)
+                    if (Environment.Is64BitOperatingSystem)
+                    {
+                        Log.Info("installing avx64");
                         Run(FindFile(settings.binav64), "/quiet");
+                    }
                     else
+                    {
+                        Log.Info("installing avx86");
                         Run(FindFile(settings.binav86), "/quiet");
+                    }
 
+            Log.InfoStamp("checking probe");
             if (!IsAgentInstalled())
                 if ((bool)checkBoxProbe.IsChecked)
+                {
+                    Log.Info("installing probe");
                     Run(FindFile(settings.binprobe), "/quiet");
+                };
 
+            Log.InfoStamp("closing");
             this.Close();
         }
 
